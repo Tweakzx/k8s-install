@@ -128,11 +128,12 @@ install_cri_dockerd () {
 kubernetes_init () {
     ${COLOR_SUCCESS}"开始初始化k8s..."${END}
     kubeadm init \
-	--kubernetes-version=v${KUBE_VERSION} \
-	--image-repository registry.aliyuncs.com/google_containers \
-	--service-cidr=${SERVICE_NETWORK} \
-	--pod-network-cidr=${POD_NETWORK} \
-	--v=5
+--kubernetes-version=v${KUBE_VERSION} \
+--image-repository registry.aliyuncs.com/google_containers \
+--service-cidr=${SERVICE_NETWORK} \
+--pod-network-cidr=${POD_NETWORK} \
+--v=5
+
     if [ $? -eq 0 ]; then
     	mkdir -p $HOME/.kube
   	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -161,6 +162,13 @@ remove_docker () {
 remove_kubernetes () {
     #To do
     apt remove -y kubeadm kubectl kubelet
+    rm -rf /etc/kubernetes/
+    rm -rf /etc/systemd/system/kubelet.service.d
+    rm -rf /etc/systemd/system/kubelet.service
+    rm -rf /usr/bin/kube*
+    rm -rf /etc/cni
+    rm -rf /opt/cni
+    rm -rf /var/lib/etcd
 }
 
 main () {
