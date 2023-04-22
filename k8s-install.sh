@@ -129,7 +129,7 @@ kubernetes_init () {
     ${COLOR_SUCCESS}"开始初始化k8s..."${END}
     kubeadm init \
 --kubernetes-version=v${KUBE_VERSION} \
-----apiserver-advertise-address=$(MASTER1_IP) \
+--apiserver-advertise-address=$(MASTER1_IP) \
 --image-repository registry.aliyuncs.com/google_containers \
 --service-cidr=${SERVICE_NETWORK} \
 --pod-network-cidr=${POD_NETWORK} \
@@ -163,11 +163,9 @@ remove_docker () {
 remove_kubernetes () {
     #To do
     apt remove -y kubeadm kubectl kubelet
-    rm -rf /etc/kubernetes/
-    rm -rf /etc/systemd/system/kubelet.service.d
-    rm -rf /etc/systemd/system/kubelet.service
-    rm -rf /usr/bin/kube*
-    rm -rf /var/lib/etcd
+    sudo rm -rf /etc/kubernetes /var/lib/kubernetes /var/lib/etcd /var/lib/kubelet /var/run/kubernetes ~/.kube
+    sudo ip link delete cni0
+    sudo ip link delete flannel.1
 }
 
 main () {
