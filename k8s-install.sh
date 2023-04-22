@@ -149,7 +149,16 @@ reset_kubernetes () {
 }
 
 configure_network () {
-	kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+    kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+}
+
+remove_docker () {
+     apt remove -y docker.io containerd
+}
+
+remove_kubernetes () {
+    #To do
+    apt remove -y kubeadm kubectl kubelet
 }
 
 main () {
@@ -170,7 +179,7 @@ main () {
                 install_docker
                 install_kubeadm
                 install_cri_dockerd
-                ${COLOR_SUCCESS}"加入kubernetes前的准备工作已完成，请执行kubeadm jion命令！"${END}
+                ${COLOR_SUCCESS}"加入kubernetes前的准备工作已完成，请执行kubeadm join命令！"${END}
                 break
                 ;;
             "退出kubernetes集群")
@@ -180,6 +189,11 @@ main () {
 	    "配置网络")
 	        configure_network
 	    	break
+		;;
+	    "删除kubernetes")
+	        reset_kubernetes
+		remove_kubernetes
+		break
 		;;
             "退出本程序")
                 exit
