@@ -162,8 +162,8 @@ remove_kubernetes () {
 }
 
 main () {
-    PS3="请选择编号（1-5）"
-    options=("初始化kubernetes集群" "加入kubernetes集群" "退出kubernetes集群" "配置网络" "退出本程序")
+    PS3="请选择编号（1-6）"
+    options=("初始化kubernetes集群" "加入kubernetes集群" "退出kubernetes集群" "配置网络" "删除kubernetes" "退出本程序")
     select item in "${options[@]}"; do
         case $item in
             "初始化kubernetes集群")
@@ -193,6 +193,7 @@ main () {
 	    "删除kubernetes")
 	        reset_kubernetes
 		remove_kubernetes
+		remove_docker
 		break
 		;;
             "退出本程序")
