@@ -128,19 +128,19 @@ install_cri_dockerd () {
 kubernetes_init () {
     ${COLOR_SUCCESS}"开始初始化k8s..."${END}
     kubeadm init \
-		--kubernetes-version=v${KUBE_VERSION} \
-		--image-repository registry.aliyuncs.com/google_containers \
-		--service-cidr=${SERVICE_NETWORK} \
-		--pod-network-cidr=${POD_NETWORK} \
-		--v=5
-	if [ $? -eq 0 ]; then
-		mkdir -p $HOME/.kube
-  		sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  		sudo chown $(id -u):$(id -g) $HOME/.kube/config	
+	--kubernetes-version=v${KUBE_VERSION} \
+	--image-repository registry.aliyuncs.com/google_containers \
+	--service-cidr=${SERVICE_NETWORK} \
+	--pod-network-cidr=${POD_NETWORK} \
+	--v=5
+    if [ $? -eq 0 ]; then
+    	mkdir -p $HOME/.kube
+  	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  	sudo chown $(id -u):$(id -g) $HOME/.kube/config	
     	color "初始化 k8s 成功！" 0
-	else
-	    color "初始化 k8s 失败！" 1
-	fi
+    else
+        color "初始化 k8s 失败！" 1
+    fi
 }
 
 reset_kubernetes () {
