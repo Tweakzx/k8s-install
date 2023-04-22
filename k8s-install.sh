@@ -2,7 +2,7 @@
 KUBE_VERSION="1.18.9"
 KUBE_VERSION2=$(echo $KUBE_VERSION |awk -F. '{print $2}')
 
-DOCKER_VERSION=""
+DOCKER_VERSION="18.06.3"
 
 MASTER1_IP=10.10.0.25
 NODE1_IP=10.10.0.26
@@ -136,10 +136,10 @@ kubernetes_init () {
 --v=5
 
     if [ $? -eq 0 ]; then
-    	mkdir -p $HOME/.kube
-  	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  	sudo chown $(id -u):$(id -g) $HOME/.kube/config	
-    	color "初始化 k8s 成功！" 0
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+        color "初始化 k8s 成功！" 0
     else
         color "初始化 k8s 失败！" 1
     fi
@@ -157,7 +157,10 @@ configure_network () {
 }
 
 remove_docker () {
-     apt remove -y docker.io containerd containerd.io
+    apt-get autoremove docker docker-ce docker-engine  docker.io  containerd runc
+    dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
+    rm -rf /etc/systemd/system/docker.service.d
+    rm -rf /var/lib/docker
 }
 
 remove_kubernetes () {
@@ -193,16 +196,16 @@ main () {
                 reset_kubernetes
                 break
                 ;;
-	    "配置网络")
-	        configure_network
-	    	break
-		;;
-	    "删除kubernetes")
-	        reset_kubernetes
-		remove_kubernetes
-		remove_docker
-		break
-		;;
+            "配置网络")
+                configure_network
+                break
+                ;;
+            "删除kubernetes")
+                reset_kubernetes
+                remove_kubernetes
+                remove_docker
+                break
+                ;;
             "退出本程序")
                 exit
                 ;;
@@ -212,3 +215,4 @@ main () {
 }
 
 main
+                                                                                                                 217,4         Bot
