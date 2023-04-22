@@ -155,7 +155,7 @@ configure_network () {
 }
 
 remove_docker () {
-     apt remove -y docker.io containerd
+     apt remove -y docker.io containerd containerd.io
 }
 
 remove_kubernetes () {
