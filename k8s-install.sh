@@ -145,8 +145,9 @@ kubernetes_init () {
 
 reset_kubernetes () {
     #To do
+    rm -rf /etc/kubernetes/*
+    rm -rf $HOME/.kube/
     kubeadm reset
-    rm -f $HOME/.kube
 }
 
 configure_network () {
