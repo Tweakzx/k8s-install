@@ -129,6 +129,7 @@ kubernetes_init () {
     ${COLOR_SUCCESS}"开始初始化k8s..."${END}
     kubeadm init \
 --kubernetes-version=v${KUBE_VERSION} \
+----apiserver-advertise-address=$(MASTER1_IP) \
 --image-repository registry.aliyuncs.com/google_containers \
 --service-cidr=${SERVICE_NETWORK} \
 --pod-network-cidr=${POD_NETWORK} \
@@ -146,9 +147,9 @@ kubernetes_init () {
 
 reset_kubernetes () {
     #To do
+    kubeadm reset
     rm -rf /etc/kubernetes/*
     rm -rf $HOME/.kube/
-    kubeadm reset
 }
 
 configure_network () {
@@ -166,8 +167,6 @@ remove_kubernetes () {
     rm -rf /etc/systemd/system/kubelet.service.d
     rm -rf /etc/systemd/system/kubelet.service
     rm -rf /usr/bin/kube*
-    rm -rf /etc/cni
-    rm -rf /opt/cni
     rm -rf /var/lib/etcd
 }
 
