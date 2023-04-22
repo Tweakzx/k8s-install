@@ -177,6 +177,10 @@ main () {
                 reset_kubernetes
                 break
                 ;;
+	    "配置网络”)
+	        configure_network
+	    	break
+		;;
             "退出本程序")
                 exit
                 ;;
