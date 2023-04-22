@@ -177,7 +177,7 @@ main () {
                 reset_kubernetes
                 break
                 ;;
-	    "配置网络”)
+	    "配置网络")
 	        configure_network
 	    	break
 		;;
