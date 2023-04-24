@@ -178,8 +178,8 @@ remove_kubernetes () {
 }
 
 main () {
-    PS3="请选择编号（1-6）"
-    options=("初始化kubernetes集群" "加入kubernetes集群" "退出kubernetes集群" "配置网络" "删除kubernetes" "退出本程序")
+    PS3="请选择编号（1-8）"
+    options=("初始化kubernetes集群" "加入kubernetes集群" "退出kubernetes集群" "配置网络" "安装helm" "删除kubernetes" "删除docker" "退出本程序")
     select item in "${options[@]}"; do
         case $item in
             "初始化kubernetes集群")
