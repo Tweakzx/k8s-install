@@ -163,6 +163,12 @@ remove_docker () {
     rm -rf /var/lib/docker
 }
 
+install_helm () {
+    wget https://mirrors.huaweicloud.com/helm/v3.1.1/helm-v3.1.1-linux-amd64.tar.gz
+    tar -zxvf helm-v3.1.1-linux-amd64.tar.gz
+    mv linux-amd64/helm /usr/local/bin/helm
+}
+
 remove_kubernetes () {
     #To do
     apt remove -y kubeadm kubectl kubelet
@@ -200,9 +206,16 @@ main () {
                 configure_network
                 break
                 ;;
+            "安装helm")
+                install_helm
+                break
+                ;;
             "删除kubernetes")
                 reset_kubernetes
                 remove_kubernetes
+                break
+                ;;
+            "删除docker")
                 remove_docker
                 break
                 ;;
