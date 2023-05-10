@@ -2,7 +2,7 @@
 
 ```shell 
 
-wget https://raw.githubusercontent.com/Tweakzx/k8s-install/main/k8s-install.sh
+wget https://raw.githubusercontent.com/Tweakzx/k8s-scripts/main/k8s-install.sh
 
 ```
 
